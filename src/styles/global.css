@@ -1,0 +1,84 @@
+/* styles/global.css */
+
+/* Reset básico */
+body, h1, h2, h3, p, ul, li {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Arial', sans-serif;
+    background-color: #f9f9f9;
+    color: #333;
+    line-height: 1.6;
+  }
+  
+  a {
+    text-decoration: none;
+    color: inherit;
+  }
+  
+  /* General container styling */
+  .container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+  }
+  
+  /* Navbar */
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    padding: 1rem;
+    background-color: #0044cc;
+    color: #fff;
+  }
+  
+  .navbar a {
+    color: #fff;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+  }
+  
+  .navbar a:hover {
+    background-color: #003399;
+  }
+
+  .home-container {
+    text-align: center;
+    padding: 20px;
+  }
+  
+  .home-container h1 {
+    font-size: 2.5rem;
+    color: #333;
+  }
+  
+  .home-container p {
+    font-size: 1.2rem;
+    margin: 10px 0 20px;
+    color: #666;
+  }
+  
+  .home-links {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+  }
+  
+  .home-links .button {
+    padding: 10px 20px;
+    text-decoration: none;
+    color: white;
+    background-color: #007BFF;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+  }
+  
+  .home-links .button:hover {
+    background-color: #0056b3;
+  }
+  
+  

@@ -1,0 +1,27 @@
+/* src/styles/background.css */
+
+.background {
+  background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d); /* Degradado épico */
+  background-size: 400% 400%; /* Efecto de movimiento */
+  animation: gradientAnimation 15s ease infinite; /* Animación del degradado */
+  min-height: 100vh; /* Ajuste a toda la pantalla */
+  display: flex; /* Mantener contenido centrado */
+  align-items: center; /* Centrado vertical */
+  justify-content: center; /* Centrado horizontal */
+  color: #fff; /* Texto en blanco para contraste */
+  font-family: 'Arial', sans-serif; /* Fuente limpia y profesional */
+  overflow: hidden; /* Evitar desplazamientos no deseados */
+}
+
+/* Animación para el fondo degradado */
+@keyframes gradientAnimation {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
