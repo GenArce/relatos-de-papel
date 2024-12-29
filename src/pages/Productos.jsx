@@ -2,25 +2,15 @@
 
 import React, { useState, useEffect } from 'react';
 import styled from 'styled-components';
-import { useCart } from '../context/CartContext'; // Importamos el hook
-import { useNavigate } from 'react-router-dom'; // Importamos useNavigate
+import { useCart } from '../context/CartContext';
+import { useNavigate } from 'react-router-dom';
 
 // Estilos usando styled-components
 const ProductosContainer = styled.div`
   text-align: center;
   padding: 20px;
   background: linear-gradient(to bottom, #f0f0f0, #e0e0e0);
-  color: #000; /* Color del texto negro */
-`;
-
-const SearchBar = styled.input`
-  padding: 10px;
-  width: 80%;
-  margin: 20px auto;
-  display: block;
-  font-size: 16px;
-  border: 1px solid #ccc;
-  border-radius: 5px;
+  color: #000;
 `;
 
 const ProductosGrid = styled.div`
@@ -34,11 +24,12 @@ const ProductoCard = styled.div`
   border-radius: 10px;
   padding: 20px;
   box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-  color: #000; /* Color del texto negro */
+  color: #000;
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
+  cursor: pointer;
 `;
 
 const ProductoImage = styled.img`
@@ -53,11 +44,6 @@ const ProductoNombre = styled.h3`
   font-size: 18px;
   font-weight: bold;
   margin: 10px 0;
-`;
-
-const ProductoDescripcion = styled.p`
-  font-size: 14px;
-  margin: 5px 0;
 `;
 
 const ProductoPrecio = styled.p`
@@ -76,6 +62,7 @@ const BtnAgregar = styled.button`
   cursor: pointer;
   font-size: 16px;
   width: 80%;
+  margin-top: 10px;
 
   &:hover {
     background-color: #48a;
@@ -89,7 +76,6 @@ const BtnRegresar = styled.button`
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  font-size: 16px;
   margin-top: 20px;
 
   &:hover {
@@ -98,13 +84,12 @@ const BtnRegresar = styled.button`
 `;
 
 const Productos = () => {
-  const { addToCart } = useCart(); // Usamos el hook para obtener la función
+  const { addToCart } = useCart();
   const [productos, setProductos] = useState([]);
   const [busqueda, setBusqueda] = useState('');
   const [productosFiltrados, setProductosFiltrados] = useState([]);
-  const navigate = useNavigate(); // Inicializamos el hook de navegación
+  const navigate = useNavigate();
 
-  // Mock de productos actualizado
   const mockProductos = [
     {
       id: 1,
@@ -143,13 +128,11 @@ const Productos = () => {
     },
   ];
 
-  // Simula la carga de productos
   useEffect(() => {
     setProductos(mockProductos);
-    setProductosFiltrados(mockProductos); // Inicialmente mostramos todos
+    setProductosFiltrados(mockProductos); 
   }, []);
 
-  // Filtrar productos al escribir en la barra de búsqueda
   const handleBusqueda = (e) => {
     const query = e.target.value.toLowerCase();
     setBusqueda(query);
@@ -161,49 +144,35 @@ const Productos = () => {
   };
 
   const handleAddToCart = (producto) => {
-    addToCart(producto); // Llamamos a la función para agregar al carrito
+    addToCart(producto); 
   };
 
-  const handleRegresar = () => {
-    navigate('/'); // Redirige a la página principal
+  const handleVerLibro = (id) => {
+    navigate(`/libro/${id}`);
   };
 
   return (
     <ProductosContainer>
-      <h2>Lista de Productos</h2>
-
-      {/* Barra de búsqueda */}
-      <SearchBar
+      <input
         type="text"
-        placeholder="Buscar productos..."
+        placeholder="Buscar libros..."
         value={busqueda}
         onChange={handleBusqueda}
+        style={{ marginBottom: '20px', padding: '10px', width: '80%' }}
       />
-
-      {/* Grid de productos */}
       <ProductosGrid>
-        {productosFiltrados.length > 0 ? (
-          productosFiltrados.map((producto) => (
-            <ProductoCard key={producto.id}>
-              <ProductoImage
-                src={producto.imagen}
-                alt={producto.nombre}
-              />
-              <ProductoNombre>{producto.nombre}</ProductoNombre>
-              <ProductoDescripcion>{producto.descripcion}</ProductoDescripcion>
-              <ProductoPrecio>{producto.precio} $</ProductoPrecio>
-              <BtnAgregar onClick={() => handleAddToCart(producto)}>
-                Agregar al Carrito
-              </BtnAgregar>
-            </ProductoCard>
-          ))
-        ) : (
-          <p>No se encontraron productos</p>
-        )}
+        {productosFiltrados.map((producto) => (
+          <ProductoCard key={producto.id} onClick={() => handleVerLibro(producto.id)}>
+            <ProductoImage src={producto.imagen} alt={producto.nombre} />
+            <ProductoNombre>{producto.nombre}</ProductoNombre>
+            <ProductoPrecio>${producto.precio}</ProductoPrecio>
+            <BtnAgregar onClick={(e) => {e.stopPropagation(); handleAddToCart(producto);}}>
+              Agregar al carrito
+            </BtnAgregar>
+          </ProductoCard>
+        ))}
       </ProductosGrid>
-
-      {/* Botón de regresar */}
-      <BtnRegresar onClick={handleRegresar}>Regresar al inicio</BtnRegresar>
+      <BtnRegresar onClick={() => navigate('/')}>Regresar al inicio</BtnRegresar>
     </ProductosContainer>
   );
 };

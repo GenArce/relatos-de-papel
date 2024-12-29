@@ -2,21 +2,21 @@
 
 import React, { useState, useEffect } from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import Home from './pages/Home'; 
-import Loading from './pages/Loading'; // Importamos la página de carga
+import Home from './pages/Home';
+import Loading from './pages/Loading';
 import Productos from './pages/Productos';
 import Carrito from './pages/Carrito';
 import Perfil from './pages/Perfil';
 import Categorias from './pages/Categorias';
-import Checkout from './pages/Checkout'; // Importamos la página de Checkout
-import Cart from './components/Cart'; // Importamos el carrito flotante
-import './styles/background.css'; // Importamos los estilos para el fondo
+import Checkout from './pages/Checkout';
+import Libro from './pages/Libro';
+import Cart from './components/Cart';
+import './styles/background.css';
 
 const App = () => {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    // Después de 5 segundos, la carga desaparece
     const timer = setTimeout(() => {
       setLoading(false);
     }, 5000);
@@ -25,13 +25,12 @@ const App = () => {
   }, []);
 
   return (
-    <div className="background"> {/* Clase BEM para el fondo */}
+    <div className="background">
       <Router>
-        {/* Incluimos el carrito flotante en todas las páginas */}
         <Cart />
         <Routes>
           {loading ? (
-            <Route path="/" element={<Loading />} /> // Página de carga
+            <Route path="/" element={<Loading />} />
           ) : (
             <>
               <Route path="/" element={<Home />} />
@@ -39,7 +38,8 @@ const App = () => {
               <Route path="/productos" element={<Productos />} />
               <Route path="/carrito" element={<Carrito />} />
               <Route path="/perfil" element={<Perfil />} />
-              <Route path="/checkout" element={<Checkout />} /> {/* Ruta para el checkout */}
+              <Route path="/checkout" element={<Checkout />} />
+              <Route path="/libro/:id" element={<Libro />} />
             </>
           )}
         </Routes>
@@ -49,5 +49,3 @@ const App = () => {
 };
 
 export default App;
-
-
